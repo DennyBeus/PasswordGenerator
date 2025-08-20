@@ -17,11 +17,26 @@ chars = ''
 print('Я создаю безопасные пароли и делаю это очень хорошо!')
 time.sleep(1)
 
-q_pass = int(input('Сколько паролей вам нужно? '))
-if q_pass == 1:
-    l_pass = int(input('Какой длины должен быть пароль? '))
-elif q_pass > 1:
-    l_pass = int(input('Какой длины должны быть пароли? '))
+while True:
+    try:
+        q_pass = int(input('Сколько паролей вам нужно? '))
+        break
+    except ValueError:
+        print('Пожалуйста, введите число!')
+
+while True:
+    if q_pass == 1:
+        try:
+            l_pass = int(input('Какой длины должен быть пароль? '))
+            break
+        except ValueError:
+            print('Пожалуйста, введите число!')
+    elif q_pass > 1:
+        try:
+            l_pass = int(input('Какой длины должны быть пароли? '))
+            break
+        except ValueError:
+            print('Пожалуйста, введите число!')
 
 add_digits = input('Включать ли цифры 0123456789? (y/n) ')
 if add_digits == 'y':
@@ -53,23 +68,18 @@ elif add_sym == 'n':
 
 del_sym = input('Исключать ли неоднозначные символы il1Lo0O? (y/n) ')
 if del_sym == 'y':
-    chars = chars.replace('i', '')
-    chars = chars.replace('l', '')
-    chars = chars.replace('1', '')
-    chars = chars.replace('L', '')
-    chars = chars.replace('o', '')
-    chars = chars.replace('0', '')
-    chars = chars.replace('O', '')
+    for ch in 'il1Lo0O':
+	    chars = chars.replace(ch, '')
 elif del_sym == 'n':
-    print('Неоднозначные символы остаются')
+    print('Неоднозначные символы не удалены')
     time.sleep(1)
 
 if q_pass == 1:
     print('Ожидайте. Ваш пароль скоро будет готов...')
-    time.sleep(2)
+    time.sleep(1)
 elif q_pass > 1:
     print('Ожидайте. Ваши пароли скоро будут готовы...')
-    time.sleep(2)
+    time.sleep(1)
 
 for _ in range(q_pass):
     print(generate_password(l_pass, chars))
